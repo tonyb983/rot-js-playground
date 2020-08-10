@@ -1,31 +1,35 @@
-import { Delays, greeter } from '../src/main';
+import { Main, RunTracker, RuntimeStats, runs } from '../src/main'
 
-describe('greeter function', () => {
+describe('Main() Function', () => {
   // Read more about fake timers
   // http://facebook.github.io/jest/docs/en/timer-mocks.html#content
   jest.useFakeTimers();
 
-  const name = 'John';
-  let hello: string;
-
   // Act before assertions
   beforeAll(async () => {
-    const p: Promise<string> = greeter(name);
     jest.runOnlyPendingTimers();
-    hello = await p;
+    jest.advanceTimersByTime(1000 * 60 * 5);
   });
 
   // Assert if setTimeout was called properly
-  it('delays the greeting by 2 seconds', () => {
+  it('Calls setTimeout when called.', async () => {   
+    Main() 
+    jest.advanceTimersByTime(100);
     expect(setTimeout).toHaveBeenCalledTimes(1);
     expect(setTimeout).toHaveBeenLastCalledWith(
       expect.any(Function),
-      Delays.Long,
+      2000,
     );
   });
 
-  // Assert greeter result
-  it('greets a user with `Hello, {name}` message', () => {
-    expect(hello).toBe(`Hello, ${name}`);
-  });
+  it('isRunning returns false before execution, true during execution, and false after execution.', async () => {    
+    //expect(running).toBe(false);
+    const p = Main();
+    jest.advanceTimersByTime(100);
+    //running = getRunning();
+    //expect(running).toBe(true);
+    await p;
+    //running = getRunning();
+    //expect(running).toBe(false);
+  })
 });
