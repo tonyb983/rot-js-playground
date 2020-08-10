@@ -37,9 +37,9 @@ To start, just click the **[Use template][repo-template-action]** link (or the g
 To clone the repository use the following commands:
 
 ```sh
-git clone https://github.com/jsynowiec/node-typescript-boilerplate
-cd node-typescript-boilerplate
-npm install
+git clone https://github.com/tonyb983/node-ts-template.git
+cd node-ts-template
+yarn install
 ```
 
 ### Download latest release
